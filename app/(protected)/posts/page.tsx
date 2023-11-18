@@ -1,50 +1,76 @@
 "use client";
+import React from "react";
+import { useMany } from "@refinedev/core";
+import { List, useDataGrid, DateField, Breadcrumb } from "@refinedev/mui";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-import {
-    useTable,
-    List,
-    EditButton,
-    ShowButton,
-    DeleteButton,
-} from "@refinedev/antd";
-import { Table, Space } from "antd";
+export default function PostList() {
+  const { dataGridProps } = useDataGrid();
 
-import { IPost } from "src/interfaces";
+  const { data: categoryData, isLoading: categoryIsLoading } = useMany({
+    resource: "categories",
+    ids: dataGridProps?.rows?.map((item: any) => item?.category?.id) ?? [],
+    queryOptions: {
+      enabled: !!dataGridProps?.rows,
+    },
+  });
 
-const PostList: React.FC = () => {
-    const { tableProps } = useTable<IPost>();
+  const columns = React.useMemo<GridColDef<any>[]>(
+    () => [
+      {
+        field: "id",
+        headerName: "Id",
+        type: "number",
+        minWidth: 50,
+      },
+      {
+        field: "title",
+        headerName: "Title",
+        minWidth: 200,
+      },
+      {
+        field: "category",
+        headerName: "Category",
+        valueGetter: ({ row }) => {
+          const value = row?.category?.id;
 
-    return (
-        <List>
-            <Table {...tableProps} rowKey="id">
-                <Table.Column dataIndex="id" title="ID" />
-                <Table.Column dataIndex="status" title="Status" />
-                <Table.Column dataIndex="title" title="Title" />
-                <Table.Column<IPost>
-                    title="Actions"
-                    dataIndex="actions"
-                    render={(_text, record): React.ReactNode => {
-                        return (
-                            <Space>
-                                <EditButton
-                                    size="small"
-                                    recordItemId={record.id}
-                                />
-                                <ShowButton
-                                    size="small"
-                                    recordItemId={record.id}
-                                />
-                                <DeleteButton
-                                    size="small"
-                                    recordItemId={record.id}
-                                />
-                            </Space>
-                        );
-                    }}
-                />
-            </Table>
-        </List>
-    );
-};
+          return value;
+        },
+        minWidth: 300,
+        renderCell: function render({ value }) {
+          return categoryIsLoading ? (
+            <>Loading...</>
+          ) : (
+            categoryData?.data?.find((item) => item.id === value)?.title
+          );
+        },
+      },
+      {
+        field: "createdAt",
+        headerName: "Created At",
+        minWidth: 250,
+        renderCell: function render({ value }) {
+          return <DateField value={value} />;
+        },
+      },
+    ],
+    [categoryData?.data]
+  );
 
-export default PostList;
+  return (
+    <List
+      breadcrumb={
+        <div
+          style={{
+            padding: "3px 6px",
+            border: "2px dashed cornflowerblue",
+          }}
+        >
+          <Breadcrumb />
+        </div>
+      }
+    >
+      <DataGrid {...dataGridProps} columns={columns} autoHeight />
+    </List>
+  );
+}

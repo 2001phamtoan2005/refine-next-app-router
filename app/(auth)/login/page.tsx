@@ -1,12 +1,12 @@
 "use client";
 
-import { AuthPage } from "@refinedev/antd";
+import { AuthPage } from "@refinedev/mui";
 
 export default function Login() {
     return (
         <AuthPage
             formProps={{
-                initialValues: {
+                defaultValues: {
                     email: "admin@refine.dev",
                     password: "password",
                 },

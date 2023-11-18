@@ -1,16 +1,17 @@
 "use client";
 
-import { ThemedLayoutV2 } from "@refinedev/antd";
+import { Header } from "@components/layouts/header";
+import { ThemedLayoutV2 } from "@refinedev/mui";
 import { Authenticated } from "@refinedev/core";
 
 export default function ProtectedLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <Authenticated redirectOnFail="/login">
-            <ThemedLayoutV2>{children}</ThemedLayoutV2>
-        </Authenticated>
-    );
+  return (
+    <Authenticated redirectOnFail="/login">
+      <ThemedLayoutV2 Header={() => <Header />}>{children}</ThemedLayoutV2>
+    </Authenticated>
+  );
 }

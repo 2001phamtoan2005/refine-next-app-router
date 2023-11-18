@@ -1,9 +1,9 @@
 "use client";
 
-import { AuthPage } from "@refinedev/antd";
+import { AuthPage } from "@refinedev/mui";
 
 export default function ForgotPassword() {
-    return <AuthPage type="forgotPassword" />;
+  return <AuthPage type="forgotPassword" />;
 }
 
 ForgotPassword.layout = "auth";

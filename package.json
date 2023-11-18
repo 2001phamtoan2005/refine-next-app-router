@@ -1,5 +1,5 @@
 {
-  "name": "with-nextjs-appdir",
+  "name": "gonsa-admin-middleware",
   "version": "3.25.0",
   "private": true,
   "scripts": {
@@ -11,24 +11,35 @@
     "cypress:run": "cypress run -C ./cypress.config.ts"
   },
   "dependencies": {
-    "@refinedev/antd": "^5.36.19",
-    "@refinedev/core": "^4.45.0",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/lab": "^5.0.0-alpha.153",
+    "@mui/material": "^5.14.18",
+    "@mui/x-data-grid": "^6.18.1",
     "@refinedev/cli": "^2.16.16",
+    "@refinedev/core": "^4.45.0",
+    "@refinedev/devtools": "^1.1.24",
+    "@refinedev/inferencer": "^4.5.14",
+    "@refinedev/kbar": "^1.3.4",
+    "@refinedev/mui": "^5.13.18",
     "@refinedev/nextjs-router": "^5.5.4",
+    "@refinedev/react-hook-form": "^4.8.12",
     "@refinedev/simple-rest": "^4.5.4",
-    "next": "^13.5.4",
     "cross-env": "^7.0.3",
+    "i18next": "^23.7.6",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-http-backend": "^2.4.1",
+    "next": "^13.5.4",
     "nookies": "^2.5.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "antd": "^5.0.5"
+    "react-i18next": "^13.5.0"
   },
   "devDependencies": {
     "@types/node": "^18.16.2",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@typescript-eslint/parser": "5.48.0",
-    "typescript": "^4.7.4",
-    "cypress": "^12.11.0"
+    "cypress": "^12.11.0",
+    "typescript": "^4.7.4"
   }
 }
