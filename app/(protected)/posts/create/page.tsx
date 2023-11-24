@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import { Create, useAutocomplete } from "@refinedev/mui";
-import { Autocomplete, Box, TextField } from "@mui/material";
-import { useForm } from "@refinedev/react-hook-form";
-import { Controller } from "react-hook-form";
+"use client"
+import React from "react"
+import { Create, useAutocomplete } from "@refinedev/mui"
+import { Autocomplete, Box, TextField } from "@mui/material"
+import { useForm } from "@refinedev/react-hook-form"
+import { Controller } from "react-hook-form"
 
 export default function PostCreate() {
   const {
@@ -12,11 +12,11 @@ export default function PostCreate() {
     register,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
-  });
+  })
 
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
@@ -29,8 +29,8 @@ export default function PostCreate() {
           {...register("title", {
             required: "This field is required",
           })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
+          error={!!errors?.title}
+          // helperText={<p>errors?.title?.message</p>}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
@@ -42,8 +42,8 @@ export default function PostCreate() {
           {...register("content", {
             required: "This field is required",
           })}
-          error={!!(errors as any)?.content}
-          helperText={(errors as any)?.content?.message}
+          error={!!errors?.content}
+          // helperText={errors?.content?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
@@ -62,14 +62,14 @@ export default function PostCreate() {
               {...categoryAutocompleteProps}
               {...field}
               onChange={(_, value) => {
-                field.onChange(value);
+                field.onChange(value)
               }}
               getOptionLabel={(item) => {
                 return (
                   categoryAutocompleteProps?.options?.find(
-                    (p) => p?.id?.toString() === item?.id?.toString()
+                    (p) => p?.id?.toString() === item?.id?.toString(),
                   )?.title ?? ""
-                );
+                )
               }}
               isOptionEqualToValue={(option, value) =>
                 value === undefined ||
@@ -81,8 +81,8 @@ export default function PostCreate() {
                   label="Category"
                   margin="normal"
                   variant="outlined"
-                  error={!!(errors as any)?.category?.id}
-                  helperText={(errors as any)?.category?.id?.message}
+                  error={!!errors}
+                  // helperText={(errors as any)?.category?.id?.message}
                   required
                 />
               )}
@@ -91,5 +91,5 @@ export default function PostCreate() {
         />
       </Box>
     </Create>
-  );
+  )
 }

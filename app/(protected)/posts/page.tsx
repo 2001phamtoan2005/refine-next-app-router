@@ -1,11 +1,11 @@
-"use client";
-import React from "react";
-import { useMany } from "@refinedev/core";
-import { List, useDataGrid, DateField, Breadcrumb } from "@refinedev/mui";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+"use client"
+import React from "react"
+import { useMany } from "@refinedev/core"
+import { List, useDataGrid, DateField, Breadcrumb } from "@refinedev/mui"
+import { DataGrid, GridColDef } from "@mui/x-data-grid"
 
 export default function PostList() {
-  const { dataGridProps } = useDataGrid();
+  const { dataGridProps } = useDataGrid()
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "categories",
@@ -13,7 +13,7 @@ export default function PostList() {
     queryOptions: {
       enabled: !!dataGridProps?.rows,
     },
-  });
+  })
 
   const columns = React.useMemo<GridColDef<any>[]>(
     () => [
@@ -32,9 +32,9 @@ export default function PostList() {
         field: "category",
         headerName: "Category",
         valueGetter: ({ row }) => {
-          const value = row?.category?.id;
+          const value = row?.category?.id
 
-          return value;
+          return value
         },
         minWidth: 300,
         renderCell: function render({ value }) {
@@ -42,7 +42,7 @@ export default function PostList() {
             <>Loading...</>
           ) : (
             categoryData?.data?.find((item) => item.id === value)?.title
-          );
+          )
         },
       },
       {
@@ -50,12 +50,12 @@ export default function PostList() {
         headerName: "Created At",
         minWidth: 250,
         renderCell: function render({ value }) {
-          return <DateField value={value} />;
+          return <DateField value={value} />
         },
       },
     ],
-    [categoryData?.data]
-  );
+    [categoryData?.data],
+  )
 
   return (
     <List
@@ -72,5 +72,5 @@ export default function PostList() {
     >
       <DataGrid {...dataGridProps} columns={columns} autoHeight />
     </List>
-  );
+  )
 }

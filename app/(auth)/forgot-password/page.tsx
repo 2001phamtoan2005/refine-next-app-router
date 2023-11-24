@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { AuthPage } from "@refinedev/mui";
+import { AuthPage } from "@refinedev/mui"
 
 export default function ForgotPassword() {
-  return <AuthPage type="forgotPassword" />;
+  return <AuthPage type="forgotPassword" />
 }
 
-ForgotPassword.layout = "auth";
+ForgotPassword.layout = "auth"

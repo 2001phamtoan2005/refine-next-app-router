@@ -1,42 +1,35 @@
-import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
-import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
-import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
-import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import Stack from "@mui/material/Stack";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { useGetIdentity, useGetLocale, useSetLocale } from "@refinedev/core";
-import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
-import Link from "next/link";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import React, { useContext } from "react";
-import { useTranslation } from "react-i18next";
-import { ColorModeContext } from "src/context";
+import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined"
+import LightModeOutlined from "@mui/icons-material/LightModeOutlined"
+import { MenuItem } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Avatar from "@mui/material/Avatar"
+import FormControl from "@mui/material/FormControl"
+import IconButton from "@mui/material/IconButton"
+import Select from "@mui/material/Select"
+import Stack from "@mui/material/Stack"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
+import { useGetIdentity, useGetLocale, useSetLocale } from "@refinedev/core"
+import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui"
+import React, { useContext } from "react"
+import { useTranslation } from "react-i18next"
+import { ColorModeContext } from "src/context"
 
 interface IUser {
-  name: string;
-  avatar: string;
+  name: string
+  avatar: string
 }
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky = true,
 }) => {
-  const { mode, setMode } = useContext(ColorModeContext);
-  const { i18n } = useTranslation();
-  const locale = useGetLocale();
-  const changeLanguage = useSetLocale();
+  const { mode, setMode } = useContext(ColorModeContext)
+  const { i18n } = useTranslation()
+  const locale = useGetLocale()
+  const changeLanguage = useSetLocale()
 
-  const currentLocale = locale();
-
-  const pathname = usePathname();
-  const query = useSearchParams();
-  console.log(i18n);
-
-  const { data: user } = useGetIdentity<IUser>();
+  const currentLocale = locale()
+  const { data: user } = useGetIdentity<IUser>()
 
   return (
     <AppBar position={sticky ? "sticky" : "relative"}>
@@ -53,7 +46,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             <FormControl sx={{ minWidth: 64 }}>
               <Select
                 disableUnderline
-                defaultValue={currentLocale}
+                defaultValue={currentLocale ?? "en"}
+                value={currentLocale}
                 inputProps={{ "aria-label": "Without label" }}
                 variant="standard"
                 sx={{
@@ -70,11 +64,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                 }}
               >
                 {[...(i18n.languages ?? [])].sort().map((lang: string) => (
-                  // @ts-ignore
                   <MenuItem
-                    component={Link}
-                    href={{ pathname, query }}
-                    locale={lang}
+                    // href={pathname}
                     selected={currentLocale === lang}
                     key={lang}
                     defaultValue={lang}
@@ -94,9 +85,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                         }}
                         src={`/images/flags/${lang}.svg`}
                       />
-                      <Typography>
-                        {lang === "en" ? "English" : "German"}
-                      </Typography>
+                      <Typography>{lang === "en" ? "English" : "German"}</Typography>
                     </Stack>
                   </MenuItem>
                 ))}
@@ -106,7 +95,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             <IconButton
               color="inherit"
               onClick={() => {
-                setMode();
+                setMode()
               }}
             >
               {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
@@ -139,5 +128,5 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
         </Stack>
       </Toolbar>
     </AppBar>
-  );
-};
+  )
+}

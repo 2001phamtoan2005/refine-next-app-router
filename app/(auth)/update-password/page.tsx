@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { AuthPage } from "@refinedev/antd";
+import { AuthPage } from "@refinedev/antd"
 
 export default function UpdatePassword() {
-    return <AuthPage type="updatePassword" />;
+  return <AuthPage type="updatePassword" />
 }
 
-UpdatePassword.layout = "auth";
+UpdatePassword.layout = "auth"
